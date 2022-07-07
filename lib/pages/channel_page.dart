@@ -23,7 +23,7 @@ class _MyChannelState extends State<MyChannel> {
           child: Text(
             'Hi PogenZ Channel',
             style: AppStyles.h3.copyWith(
-                fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+                fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         actions: [
@@ -82,6 +82,39 @@ class _MyChannelState extends State<MyChannel> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Browse Categories',
+                style: AppStyles.h3.copyWith(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 150,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                height: size.height * 1 / 20,
+                child: PageView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(40.0),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 135, 136, 139)),
+                      ),
+                    );
+                  },
+                )),
+          )
         ],
       ),
     );
