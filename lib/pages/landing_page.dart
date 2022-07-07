@@ -63,22 +63,6 @@ class landing_Page extends StatelessWidget {
               ),
             ),
           ),
-          //   Row(children: [
-          //     Container(
-          //       child: RawMaterialButton(
-          //         child: Text(
-          //           'Skip',
-          //           style: AppStyles.h3
-          //               .copyWith(fontSize: 14, color: Colors.lightBlue),
-          //         ),
-          //         onPressed: () {
-          //           print('pressed');
-          //         },
-          //       ),
-          //     ),
-          //   ])
-          // ]
-
           Container(
             alignment: FractionalOffset.center,
             child: Row(
@@ -130,10 +114,11 @@ class landing_Page extends StatelessWidget {
                             side: BorderSide(color: AppColors.purple),
                           ))),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyChannel()));
+                                builder: (context) => MyChannel()),
+                            (route) => false);
                         print('pressed');
                       },
                     ),
