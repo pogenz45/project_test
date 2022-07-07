@@ -42,12 +42,43 @@ class _MyChannelState extends State<MyChannel> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 30, top: 10),
+            padding: const EdgeInsets.only(top: 10, left: 30, bottom: 30),
             child: Container(
+              alignment: Alignment.centerLeft,
               child: Text(
                 'What would you like to play',
                 style: AppStyles.h3.copyWith(
-                    fontSize: 18, color: Color.fromARGB(255, 188, 179, 179)),
+                    fontSize: 18, color: Color.fromARGB(255, 130, 130, 132)),
+              ),
+            ),
+          ),
+          Container(
+            child: SizedBox(
+              width: 350,
+              child: TextField(
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color.fromARGB(225, 116, 118, 119),
+                    suffixIcon: Container(
+                      // alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: const Icon(
+                          Icons.search,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    hintText: "Search game",
+                    hintStyle: AppStyles.h3
+                        .copyWith(fontSize: 15, color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(45.0),
+                        borderSide: const BorderSide(
+                          width: 2.0,
+                          color: Colors.white,
+                        ))),
               ),
             ),
           ),
