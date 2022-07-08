@@ -16,15 +16,15 @@ class MyChannel extends StatefulWidget {
 class _MyChannelState extends State<MyChannel> {
   List<Map> categories = [
     {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
+    {'name': 'Adventure'},
+    {'name': 'Racing'},
+    {'name': 'Shooting'},
+    {'name': 'Online'},
   ];
   List<Map> recommened = [
-    {'iconPath': AppImages.image1},
-    {'iconPath': AppImages.image2},
     {'iconPath': AppImages.image3},
+    {'iconPath': AppImages.image2},
+    {'iconPath': AppImages.image1},
   ];
   @override
   Widget build(BuildContext context) {
@@ -119,29 +119,40 @@ class _MyChannelState extends State<MyChannel> {
                     scrollDirection: Axis.horizontal,
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 24),
-                          child: Container(
-                            height: size.height * 1 / 25,
-                            decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: BorderRadius.circular(45.0),
-                                border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 130, 130, 132))),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Text(
-                                categories[index]['name'],
-                                style: AppStyles.h3.copyWith(
-                                    fontSize: 14, color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                      return Card(
+                        color: AppColors.primaryColor,
+                        child: ListTile(
+                          title: Text(
+                            categories[index]['name'],
+                            style: AppStyles.h3
+                                .copyWith(fontSize: 14, color: Colors.white),
                           ),
                         ),
+                        // child: SizedBox(
+                        //   width: 150,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(left: 20),
+                        //     child: Container(
+                        //       height: size.height * 1 / 25,
+                        //       decoration: BoxDecoration(
+                        //           color: AppColors.primaryColor,
+                        //           borderRadius: BorderRadius.circular(45.0),
+                        //           border: Border.all(
+                        //               width: 1.5,
+                        //               color:
+                        //                   Color.fromARGB(255, 130, 130, 132))),
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.only(top: 4.0),
+                        //         child: Text(
+                        //           categories[index]['name'],
+                        //           style: AppStyles.h3.copyWith(
+                        //               fontSize: 14, color: Colors.white),
+                        //           textAlign: TextAlign.center,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       );
                     }),
               ),
