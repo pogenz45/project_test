@@ -96,20 +96,28 @@ class _MyChannelState extends State<MyChannel> {
             ),
           ),
           SizedBox(
-            width: 150,
+            width: 400,
             child: Container(
                 alignment: Alignment.centerLeft,
                 height: size.height * 1 / 20,
                 child: PageView.builder(
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(40.0),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 135, 136, 139)),
+                    return SizedBox(
+                      width: 100,
+                      child: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(40.0),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 135, 136, 139)),
+                        ),
+                        child: Text(
+                          'Action',
+                          style: AppStyles.h3
+                              .copyWith(fontSize: 13, color: Colors.white),
+                        ),
                       ),
                     );
                   },
