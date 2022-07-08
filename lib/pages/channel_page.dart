@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/values/app_colors.dart';
 import 'package:flutter_application_1/values/app_icons.dart';
+import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
 
 class MyChannel extends StatefulWidget {
@@ -13,10 +16,15 @@ class MyChannel extends StatefulWidget {
 class _MyChannelState extends State<MyChannel> {
   List<Map> categories = [
     {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
-    {'name': 'Action'},
+    {'name': 'Adventure'},
+    {'name': 'Racing'},
+    {'name': 'Shooting'},
+    {'name': 'Online'},
+  ];
+  List<Map> recommened = [
+    {'iconPath': AppImages.image3},
+    {'iconPath': AppImages.image2},
+    {'iconPath': AppImages.image1},
   ];
   @override
   Widget build(BuildContext context) {
@@ -90,7 +98,7 @@ class _MyChannelState extends State<MyChannel> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(25.0),
+            padding: const EdgeInsets.only(left: 25.0, bottom: 10, top: 25),
             child: Container(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -102,60 +110,100 @@ class _MyChannelState extends State<MyChannel> {
               ),
             ),
           ),
-          // SizedBox(
-          //   width: 400,
-          //   child: Container(
-          //       alignment: Alignment.centerLeft,
-          //       height: size.height * 1 / 20,
-          //       child: PageView.builder(
-          //         itemCount: 5,
-          //         itemBuilder: (context, index) {
-          //           return SizedBox(
-          //             width: 100,
-          //             child: Container(
-          //               padding: const EdgeInsets.all(8.0),
-          //               decoration: BoxDecoration(
-          //                 color: AppColors.primaryColor,
-          //                 borderRadius: BorderRadius.circular(40.0),
-          //                 border: Border.all(
-          //                     color: Color.fromARGB(255, 135, 136, 139)),
-          //               ),
-          //               child: Text(
-          //                 'Action',
-          //                 style: AppStyles.h3
-          //                     .copyWith(fontSize: 13, color: Colors.white),
-          //               ),
-          //             ),
-          //           );
-          //         },
-          //       )),
-          // ),
-          SingleChildScrollView(
-            child: Container(
-              height: size.height * 1 / 20,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      width: 100,
-                      child: Container(
-                        // height: size.height * 1 / 20,
-                        decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(45.0),
-                            border: Border.all(color: Colors.white)),
-                        child: Text(
-                          categories[index]['name'],
-                          style: AppStyles.h3
-                              .copyWith(fontSize: 14, color: Colors.white),
-                          textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Container(
+                height: size.height * 1 / 24,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: AppColors.primaryColor,
+                        child: ListTile(
+                          title: Text(
+                            categories[index]['name'],
+                            style: AppStyles.h3
+                                .copyWith(fontSize: 14, color: Colors.white),
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                        // child: SizedBox(
+                        //   width: 150,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(left: 20),
+                        //     child: Container(
+                        //       height: size.height * 1 / 25,
+                        //       decoration: BoxDecoration(
+                        //           color: AppColors.primaryColor,
+                        //           borderRadius: BorderRadius.circular(45.0),
+                        //           border: Border.all(
+                        //               width: 1.5,
+                        //               color:
+                        //                   Color.fromARGB(255, 130, 130, 132))),
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.only(top: 4.0),
+                        //         child: Text(
+                        //           categories[index]['name'],
+                        //           style: AppStyles.h3.copyWith(
+                        //               fontSize: 14, color: Colors.white),
+                        //           textAlign: TextAlign.center,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      );
+                    }),
+              ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25, bottom: 10, top: 25),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Recommened',
+                style: AppStyles.h3.copyWith(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Container(
+                height: size.height * 1 / 3.5,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: recommened.length,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 300,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 24),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(45.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.0)),
+                              child: Image.asset(
+                                recommened[index]['iconPath'],
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+          ),
         ],
       ),
     );
