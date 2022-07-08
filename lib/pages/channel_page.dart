@@ -11,6 +11,13 @@ class MyChannel extends StatefulWidget {
 }
 
 class _MyChannelState extends State<MyChannel> {
+  List<Map> categories = [
+    {'name': 'Action'},
+    {'name': 'Action'},
+    {'name': 'Action'},
+    {'name': 'Action'},
+    {'name': 'Action'},
+  ];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -95,33 +102,59 @@ class _MyChannelState extends State<MyChannel> {
               ),
             ),
           ),
-          SizedBox(
-            width: 400,
+          // SizedBox(
+          //   width: 400,
+          //   child: Container(
+          //       alignment: Alignment.centerLeft,
+          //       height: size.height * 1 / 20,
+          //       child: PageView.builder(
+          //         itemCount: 5,
+          //         itemBuilder: (context, index) {
+          //           return SizedBox(
+          //             width: 100,
+          //             child: Container(
+          //               padding: const EdgeInsets.all(8.0),
+          //               decoration: BoxDecoration(
+          //                 color: AppColors.primaryColor,
+          //                 borderRadius: BorderRadius.circular(40.0),
+          //                 border: Border.all(
+          //                     color: Color.fromARGB(255, 135, 136, 139)),
+          //               ),
+          //               child: Text(
+          //                 'Action',
+          //                 style: AppStyles.h3
+          //                     .copyWith(fontSize: 13, color: Colors.white),
+          //               ),
+          //             ),
+          //           );
+          //         },
+          //       )),
+          // ),
+          SingleChildScrollView(
             child: Container(
-                alignment: Alignment.centerLeft,
-                height: size.height * 1 / 20,
-                child: PageView.builder(
-                  itemCount: 5,
+              height: size.height * 1 / 20,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
                   itemBuilder: (context, index) {
                     return SizedBox(
                       width: 100,
                       child: Container(
-                        padding: const EdgeInsets.all(8.0),
+                        // height: size.height * 1 / 20,
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(40.0),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 135, 136, 139)),
-                        ),
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(45.0),
+                            border: Border.all(color: Colors.white)),
                         child: Text(
-                          'Action',
+                          categories[index]['name'],
                           style: AppStyles.h3
-                              .copyWith(fontSize: 13, color: Colors.white),
+                              .copyWith(fontSize: 14, color: Colors.white),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     );
-                  },
-                )),
+                  }),
+            ),
           )
         ],
       ),
