@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/channel_page.dart';
 import 'package:flutter_application_1/values/app_colors.dart';
+import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
 
 class landing_Page extends StatelessWidget {
@@ -22,9 +23,9 @@ class landing_Page extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(12.0),
                   bottomRight: Radius.circular(12.0)),
-              child: Image.network(
-                'https://78.media.tumblr.com/b9a051e06735a7cb1089894738a40ab2/tumblr_pfdizdWwJw1vcuw2ko3_1280.jpg',
-                width: 600,
+              child: Image.asset(
+                AppImages.image0,
+                width: 700,
                 fit: BoxFit.fill,
               ),
             ),
@@ -54,7 +55,7 @@ class landing_Page extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.only(bottom: 30),
             child: Container(
               child: Text(
                 'of choice',
