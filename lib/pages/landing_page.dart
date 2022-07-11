@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/channel_page.dart';
+import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/values/app_colors.dart';
 import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
@@ -117,8 +118,7 @@ class landing_Page extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => MyChannel()),
+                            MaterialPageRoute(builder: (context) => HomePage()),
                             (route) => false);
                         print('pressed');
                       },

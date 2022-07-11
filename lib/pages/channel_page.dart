@@ -7,6 +7,7 @@ import 'package:flutter_application_1/values/app_colors.dart';
 import 'package:flutter_application_1/values/app_icons.dart';
 import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'dart:ui';
 
@@ -58,6 +59,11 @@ class _MyChannelState extends State<MyChannel> {
     {'imagePath': AppImages.image3},
     {'imagePath': AppImages.image2},
     {'imagePath': AppImages.image1},
+  ];
+  List<Map> recommened_name = [
+    {'name': 'The Grandure'},
+    {'name': 'The Grandure'},
+    {'name': 'The Grandure'},
   ];
   List<Map> NewReleases = [
     {
@@ -113,6 +119,7 @@ class _MyChannelState extends State<MyChannel> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
@@ -159,18 +166,16 @@ class _MyChannelState extends State<MyChannel> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Color.fromARGB(225, 116, 118, 119),
-                      suffixIcon: Container(
-                        // alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: const Icon(
-                            Icons.search,
-                            size: 40,
-                            color: Colors.white,
-                          ),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Icon(
+                          Icons.search,
+                          size: 40,
+                          color: Colors.white,
                         ),
                       ),
                       hintText: "Search game",
+                      contentPadding: const EdgeInsets.only(left: 20),
                       hintStyle: AppStyles.h3
                           .copyWith(fontSize: 15, color: Colors.white),
                       border: OutlineInputBorder(
@@ -210,13 +215,13 @@ class _MyChannelState extends State<MyChannel> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: Container(
-                            child: new ElevatedButton(
+                            child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                shape: new RoundedRectangleBorder(
+                                shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(45.0),
                                     side: BorderSide(
                                         width: 1.5,
-                                        color: Color.fromARGB(
+                                        color: const Color.fromARGB(
                                             255, 111, 107, 107))),
                                 primary: tappedIndex == index
                                     ? AppColors.purple
@@ -241,7 +246,7 @@ class _MyChannelState extends State<MyChannel> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 25, bottom: 10, top: 10),
+            padding: const EdgeInsets.only(left: 25, bottom: 10, top: 5),
             child: Container(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -254,7 +259,7 @@ class _MyChannelState extends State<MyChannel> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8),
+            padding: const EdgeInsets.only(left: 8.0, top: 4.0, right: 8),
             child: SingleChildScrollView(
               child: Container(
                 height: size.height * 1 / 3.5,
@@ -271,15 +276,136 @@ class _MyChannelState extends State<MyChannel> {
                               // color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(45.0),
                             ),
-                            child: Container(
-                              child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.0)),
-                                child: Image.asset(
-                                  recommened[index]['imagePath'],
-                                  fit: BoxFit.fill,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20.0)),
+                                    child: Image.asset(
+                                      recommened[index]['imagePath'],
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 147.0),
+                                  child: Container(
+                                    height: 100,
+                                    width: 247,
+                                    child: Container(
+                                      child: ClipRect(
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 3.0, sigmaY: 3.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey.shade200
+                                                    .withOpacity(0.5)),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 12.0,
+                                                                top: 12,
+                                                                bottom: 5),
+                                                        child: Text(
+                                                            recommened_name[
+                                                                index]['name'],
+                                                            style: AppStyles.h3
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .white)),
+                                                      ),
+                                                      Container(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 55.0),
+                                                          child: Text(
+                                                            categories[index]
+                                                                ['name'],
+                                                            style: AppStyles.h3
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        15,
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8.0,
+                                                                  right: 85),
+                                                          child: Icon(
+                                                            Icons.star,
+                                                            color: Colors.amber,
+                                                            size: 18,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 40.0, top: 30),
+                                                  child: Container(
+                                                    child: ElevatedButton(
+                                                      child: Text(
+                                                        'Get',
+                                                        style: AppStyles.h3
+                                                            .copyWith(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                        shape: MaterialStateProperty.all(
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20))),
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all(AppColors
+                                                                    .purple),
+                                                      ),
+                                                      onPressed: () {},
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -291,7 +417,7 @@ class _MyChannelState extends State<MyChannel> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 25, bottom: 10, top: 25),
+                padding: const EdgeInsets.only(left: 25, bottom: 10, top: 10),
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -437,7 +563,7 @@ class _MyChannelState extends State<MyChannel> {
         ],
       ),
       bottomNavigationBar: Container(
-        child: new Theme(
+        child: Theme(
           data: Theme.of(context).copyWith(
             canvasColor: Color.fromARGB(255, 150, 156, 171).withOpacity(0.8),
           ),
