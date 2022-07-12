@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/channel1.dart';
+import 'package:flutter_application_1/pages/channel_page.dart';
 import 'package:flutter_application_1/pages/horizon.dart';
 import 'package:flutter_application_1/pages/landing_page.dart';
 

@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
+import 'package:flutter_application_1/pages/channel1.dart';
 import 'package:flutter_application_1/pages/channel_page.dart';
 import 'package:flutter_application_1/pages/register_page.dart';
 import 'package:flutter_application_1/pages/widget/alert.dart';
@@ -33,7 +35,7 @@ class _MyWidgetState extends State<loginPage> {
       await dbhelper().getLoginUser(UserID, PassWord).then((UserData) {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => MyChannel()),
+            MaterialPageRoute(builder: (context) => MyWidget1()),
             (route) => false);
       }).catchError((Error) {
         print(Error);

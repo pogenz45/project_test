@@ -47,6 +47,7 @@ class MyChannel extends StatefulWidget {
 }
 
 class _MyChannelState extends State<MyChannel> {
+  final Screens = [MyChannel()];
   int? tappedIndex;
   List<Map> categories = [
     {'name': 'Action'},
@@ -453,7 +454,7 @@ class _MyChannelState extends State<MyChannel> {
             child: SizedBox(
               width: 400,
               child: Container(
-                height: size.height * 1 / 4.5,
+                height: size.height * 1 / 5,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: NewReleases.length,
@@ -562,53 +563,53 @@ class _MyChannelState extends State<MyChannel> {
           ))
         ],
       ),
-      bottomNavigationBar: Container(
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Color.fromARGB(255, 150, 156, 171).withOpacity(0.8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 10),
-            child: Container(
-              height: size.height * 1 / 10,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: 5,
-                      sigmaY: 10,
-                    ),
-                    child: BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      selectedItemColor: Color.fromARGB(255, 172, 182, 187),
-                      iconSize: 40,
-                      selectedFontSize: 20,
-                      unselectedFontSize: 15,
-                      items: const <BottomNavigationBarItem>[
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                        ),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.explore), label: 'Explore'),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.person), label: 'Profile'),
-                      ],
-                      currentIndex: currentIndex,
-                      onTap: (index) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   child: Theme(
+      //     data: Theme.of(context).copyWith(
+      //       canvasColor: Color.fromARGB(255, 150, 156, 171).withOpacity(0.8),
+      //     ),
+      //     child: Padding(
+      //       padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 10),
+      //       child: Container(
+      //         height: size.height * 1 / 10,
+      //         child: ClipRRect(
+      //           borderRadius: BorderRadius.circular(16),
+      //           child: ClipRect(
+      //             child: BackdropFilter(
+      //               filter: ImageFilter.blur(
+      //                 sigmaX: 5,
+      //                 sigmaY: 10,
+      //               ),
+      //               child: BottomNavigationBar(
+      //                 type: BottomNavigationBarType.fixed,
+      //                 selectedItemColor: Color.fromARGB(255, 172, 182, 187),
+      //                 iconSize: 40,
+      //                 selectedFontSize: 20,
+      //                 unselectedFontSize: 15,
+      //                 items: const <BottomNavigationBarItem>[
+      //                   BottomNavigationBarItem(
+      //                     icon: Icon(Icons.home),
+      //                     label: 'Home',
+      //                   ),
+      //                   BottomNavigationBarItem(
+      //                       icon: Icon(Icons.explore), label: 'Explore'),
+      //                   BottomNavigationBarItem(
+      //                       icon: Icon(Icons.person), label: 'Profile'),
+      //                 ],
+      //                 currentIndex: currentIndex,
+      //                 onTap: (index) {
+      //                   setState(() {
+      //                     currentIndex = index;
+      //                   });
+      //                 },
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

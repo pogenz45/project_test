@@ -18,6 +18,8 @@ class dbhelper {
   static const String C_Email = 'Email';
   static const String C_PassWord = 'PassWord';
   static const int C_ID = 1;
+  // dbhelper._privateConstructor();
+  // static final dbhelper instance = dbhelper._privateConstructor();
 
   static Database? _database;
   Future<Database> get database async => _database ??= await initDatabase();
@@ -50,8 +52,22 @@ class dbhelper {
     }
     return null;
   }
-}
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-// }
+  Future<int> updateUser(UserModel user) async {
+    var dbclient = await database;
+    var res = await dbclient.update(
+      table,
+      user.toMap(),
+      where: '$C_UserName = ?',
+      whereArgs: [user.UserName],
+    );
+    return res;
+  }
+
+  Future<int> deleteUser(String UserName) async {
+    var dbClient = await database;
+    var res = await dbClient
+        .delete(table, where: '$C_UserName = ?', whereArgs: [UserName]);
+    return res;
+  }
+}
