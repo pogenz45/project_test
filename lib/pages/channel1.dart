@@ -13,6 +13,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'dart:ui';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class MyWidget1 extends StatefulWidget {
   @override
   State<MyWidget1> createState() => _MyWidget1State();
@@ -20,6 +22,23 @@ class MyWidget1 extends StatefulWidget {
 
 class _MyWidget1State extends State<MyWidget1> {
   int currentIndex = 0;
+  int? tappedIndex;
+  Future<SharedPreferences> pref = SharedPreferences.getInstance();
+  final TextEditingController conUserName = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+    tappedIndex = 0;
+  }
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await pref;
+    setState(() {
+      conUserName.text = sp.getString('UserName')!;
+    });
+  }
+
   final Screens = [
     MyChannel(),
     Container(
@@ -36,6 +55,49 @@ class _MyWidget1State extends State<MyWidget1> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 24, left: 12),
+          child: Row(
+            children: [
+              Text(
+                'Hi ',
+                style: AppStyles.h3.copyWith(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                conUserName.text,
+                style: AppStyles.h3.copyWith(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                ' Channel',
+                style: AppStyles.h3.copyWith(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: RawMaterialButton(
+              onPressed: () {},
+              shape: CircleBorder(),
+              child: Icon(
+                Icons.notifications,
+              ),
+            ),
+          )
+        ],
+      ),
       body: Screens[currentIndex],
       bottomNavigationBar: Container(
         child: Theme(

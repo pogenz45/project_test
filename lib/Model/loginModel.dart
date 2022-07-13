@@ -1,14 +1,13 @@
-class UserModel {
+class LoginModel {
   late String UserName;
   late String PassWord;
   late String Email;
 
-  UserModel(
+  LoginModel(
     this.UserName,
-    this.Email,
     this.PassWord,
   );
-  // UserModelLogin(
+  // LoginModelLogin(
   //   this.UserName,
   //   this.PassWord,
   // )
@@ -22,7 +21,7 @@ class UserModel {
     return map;
   }
 
-  UserModel.fromMap(Map<String, dynamic> map) {
+  LoginModel.fromMap(Map<String, dynamic> map) {
     UserName = map['UserName'];
     Email = map['Email'];
     PassWord = map['PassWord'];

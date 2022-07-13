@@ -11,6 +11,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'dart:ui';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class MyChannel extends StatefulWidget {
   final bool showSelectedLabels;
   final bool showUnselectedLabels;
@@ -110,10 +112,20 @@ class _MyChannelState extends State<MyChannel> {
   int currentIndex = 0;
   // late List<bool> pressAttentions = categories.map((e) => false).toList();
   // bool pressAttention = false;
+  Future<SharedPreferences> pref = SharedPreferences.getInstance();
+  final TextEditingController conUserName = TextEditingController();
   @override
   void initState() {
     super.initState();
+    getUserName();
     tappedIndex = 0;
+  }
+
+  Future<void> getUserName() async {
+    final SharedPreferences sp = await pref;
+    setState(() {
+      conUserName.text = sp.getString('UserName')!;
+    });
   }
 
   @override
@@ -123,29 +135,49 @@ class _MyChannelState extends State<MyChannel> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       backgroundColor: AppColors.primaryColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 24, left: 12),
-          child: Text(
-            'Hi PogenZ Channel',
-            style: AppStyles.h3.copyWith(
-                fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: RawMaterialButton(
-              onPressed: () {},
-              shape: CircleBorder(),
-              child: Icon(
-                Icons.notifications,
-              ),
-            ),
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.primaryColor,
+      //   title: Padding(
+      //     padding: const EdgeInsets.only(top: 24, left: 12),
+      //     child: Row(
+      //       children: [
+      //         Text(
+      //           'Hi ',
+      //           style: AppStyles.h3.copyWith(
+      //               fontSize: 30,
+      //               color: Colors.white,
+      //               fontWeight: FontWeight.bold),
+      //         ),
+      //         Text(
+      //           conUserName.text,
+      //           style: AppStyles.h3.copyWith(
+      //               fontSize: 30,
+      //               color: Colors.white,
+      //               fontWeight: FontWeight.bold),
+      //         ),
+      //         Text(
+      //           ' Channel',
+      //           style: AppStyles.h3.copyWith(
+      //               fontSize: 30,
+      //               color: Colors.white,
+      //               fontWeight: FontWeight.bold),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(top: 30),
+      //       child: RawMaterialButton(
+      //         onPressed: () {},
+      //         shape: CircleBorder(),
+      //         child: Icon(
+      //           Icons.notifications,
+      //         ),
+      //       ),
+      //     )
+      //   ],
+      // ),
       body: Column(
         children: [
           Padding(

@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_application_1/Model/UserModel.dart';
+import 'package:flutter_application_1/dataBaseHandler/dbHelper.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:flutter_application_1/pages/channel1.dart';
 import 'package:flutter_application_1/pages/channel_page.dart';
@@ -10,7 +12,7 @@ import 'package:flutter_application_1/pages/widget/alert.dart';
 import 'package:flutter_application_1/pages/widget/getTextFormField.dart';
 import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
-import '../dataBaseHandler/DbHelper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({Key? key}) : super(key: key);
@@ -22,26 +24,64 @@ class loginPage extends StatefulWidget {
 class _MyWidgetState extends State<loginPage> {
   final formkey = new GlobalKey<FormState>();
 
-  final _conUserID = TextEditingController();
-  final _conPassWord = TextEditingController();
+  final conUserName = TextEditingController();
+  final conEmail = TextEditingController();
+  final conPassWord = TextEditingController();
+  Future<SharedPreferences> pref = SharedPreferences.getInstance();
+  var dbHelper;
+
+  _setIsLogin() async {}
+
+  @override
+  void initState() {
+    _query();
+    dbHelper = dbhelper();
+    super.initState();
+  }
+
   login() async {
-    String UserID = _conUserID.text;
-    String PassWord = _conPassWord.text;
-    if (UserID.isEmpty) {
+    String UserName1 = conUserName.text;
+    String Email = conEmail.text;
+    String PassWord = conPassWord.text;
+    if (UserName1.isEmpty) {
       alertDialog('Please enter UserName');
     } else if (PassWord.isEmpty) {
       alertDialog('Please enter password');
     } else {
-      await dbhelper().getLoginUser(UserID, PassWord).then((UserData) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => MyWidget1()),
-            (route) => false);
-      }).catchError((Error) {
-        print(Error);
+      // await dbhelper().getLoginUser(UserName, PassWord).then((UserData) {
+      //   Navigator.pushAndRemoveUntil(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => profile_Page()),
+      //       (route) => false);
+      // }).catchError((Error) {
+      //   print(Error);
+      //   alertDialog('Error: Login Fail');
+      // });
+      UserModel user = UserModel(UserName1, Email, PassWord);
+      await dbhelper().getUserLogin(user).then((userData) {
+        if (userData != null) {
+          setSP(userData).whenComplete(() {
+            print(UserName1);
+            Navigator.pushAndRemoveUntil(
+                (context),
+                MaterialPageRoute(builder: (context) => MyWidget1()),
+                (route) => false);
+          });
+        } else {
+          alertDialog("Error: User Not Found");
+        }
+      }).catchError((error) {
+        print(error);
         alertDialog('Error: Login Fail');
       });
     }
+  }
+
+  Future setSP(UserModel user) async {
+    final SharedPreferences sp = await pref;
+    sp.setString("UserName", user.UserName);
+    sp.setString("Email", user.Email);
+    sp.setString("PassWord", user.PassWord);
   }
 
   @override
@@ -72,7 +112,7 @@ class _MyWidgetState extends State<loginPage> {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     'Hello',
                     style: AppStyles.h3.copyWith(
@@ -110,15 +150,21 @@ class _MyWidgetState extends State<loginPage> {
                           height: 80,
                         ),
                         getTextFormField(
-                          controller: _conUserID,
+                          controller: conUserName,
                           labelName: 'UserName',
                           hintName: 'UserName',
                           icon: Icons.person,
-                          inputType: TextInputType.name,
                           isObscureText: false,
                         ),
                         getTextFormField(
-                          controller: _conPassWord,
+                          controller: conEmail,
+                          labelName: 'Email',
+                          hintName: 'Email',
+                          icon: Icons.person,
+                          isObscureText: false,
+                        ),
+                        getTextFormField(
+                          controller: conPassWord,
                           labelName: 'PassWord',
                           hintName: 'PassWord',
                           icon: Icons.lock,
@@ -166,11 +212,12 @@ class _MyWidgetState extends State<loginPage> {
                             ),
                             onPressed: () {
                               login();
+                              // _query();
                             },
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.only(top: 150, right: 50),
+                          padding: const EdgeInsets.only(top: 50, right: 50),
                           alignment: Alignment.bottomRight,
                           child: Text(
                             "Don't have account?",
@@ -212,5 +259,14 @@ class _MyWidgetState extends State<loginPage> {
         ),
       ),
     );
+  }
+
+  void _query() async {
+    final allRows = await dbhelper().queryAllRows();
+    print('query all row');
+    allRows.forEach((row) {
+      print(row);
+      return null;
+    });
   }
 }
