@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Model/UserModel.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
@@ -23,8 +24,14 @@ class _registerPageState extends State<registerPage> {
   final _conEmail = TextEditingController();
   final _conPW = TextEditingController();
   final _conRPW = TextEditingController();
+
+  bool _passwordVisible = false;
+  bool _rpasswordVisible = false;
+
   @override
   void initState() {
+    _passwordVisible = false;
+    _rpasswordVisible = false;
     super.initState();
     dbhelper();
   }
@@ -35,9 +42,12 @@ class _registerPageState extends State<registerPage> {
     String email = _conEmail.text;
     String pw = _conPW.text;
     String rpw = _conRPW.text;
+    final bool isValid = EmailValidator.validate(email);
     if (formkey.currentState!.validate()) {
       if (pw != rpw) {
         alertDialog('Password mismatch');
+      } else if (isValid == false) {
+        alertDialog('Invalid Email');
       } else {
         formkey.currentState!.save();
         UserModel model = UserModel(user, email, pw);
@@ -150,25 +160,139 @@ class _registerPageState extends State<registerPage> {
                           SizedBox(
                             height: 15,
                           ),
-                          getTextFormField(
-                            controller: _conPW,
-                            labelName: 'Password',
-                            hintName: 'Password',
-                            icon: Icons.lock,
-                            // inputType: TextInputType.visiblePassword,
-                            isObscureText: true,
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 25, left: 50, right: 50),
+                            child: TextFormField(
+                              controller: _conPW,
+                              obscureText: !_passwordVisible,
+
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter PassWord';
+                                }
+                                return null;
+                              },
+                              // onSaved: (value) {
+                              //   this.controller?.text = value;
+                              // },
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  errorStyle: TextStyle(color: Colors.red),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.red)),
+                                  prefixIcon: Icon(Icons.lock),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  labelText: 'PassWord',
+                                  hintText: 'PassWord',
+                                  contentPadding:
+                                      const EdgeInsets.only(left: 20),
+                                  fillColor: Colors.grey[200],
+                                  filled: true),
+                            ),
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          getTextFormField(
-                            controller: _conRPW,
-                            labelName: 'Confirm Password',
-                            hintName: 'Confirm Password',
-                            icon: Icons.lock,
-                            // inputType: TextInputType.visiblePassword,
-                            isObscureText: true,
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 25, left: 50, right: 50),
+                            child: TextFormField(
+                              controller: _conRPW,
+                              obscureText: _rpasswordVisible,
+
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter PassWord';
+                                }
+                                return null;
+                              },
+                              // onSaved: (value) {
+                              //   this.controller?.text = value;
+                              // },
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  errorStyle: TextStyle(color: Colors.red),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide:
+                                          BorderSide(color: Colors.red)),
+                                  prefixIcon: Icon(Icons.lock),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _rpasswordVisible = !_rpasswordVisible;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _rpasswordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  labelText: 'PassWord',
+                                  hintText: 'PassWord',
+                                  contentPadding:
+                                      const EdgeInsets.only(left: 20),
+                                  fillColor: Colors.grey[200],
+                                  filled: true),
+                            ),
                           ),
+                          // getTextFormField(
+                          //   controller: _conPW,
+                          //   labelName: 'Password',
+                          //   hintName: 'Password',
+                          //   icon: Icons.lock,
+                          //   icon1: ,
+                          //   // inputType: TextInputType.visiblePassword,
+                          //   isObscureText: true,
+                          // ),
+
+                          // getTextFormField(
+                          //   controller: _conRPW,
+                          //   labelName: 'Confirm Password',
+                          //   hintName: 'Confirm Password',
+                          //   icon: Icons.lock,
+                          //   // inputType: TextInputType.visiblePassword,
+                          //   isObscureText: true,
+                          // ),
                           SizedBox(
                             height: 50,
                           ),

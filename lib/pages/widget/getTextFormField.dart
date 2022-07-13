@@ -8,6 +8,7 @@ class getTextFormField extends StatelessWidget {
   IconData? icon;
   bool isObscureText = false;
   TextInputType inputType;
+  bool _passwordVisible = false;
 
   getTextFormField(
       {this.controller,
@@ -16,6 +17,10 @@ class getTextFormField extends StatelessWidget {
       this.icon,
       this.inputType = TextInputType.text,
       this.isObscureText = false});
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {

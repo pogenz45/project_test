@@ -29,12 +29,11 @@ class _MyWidgetState extends State<loginPage> {
   final conPassWord = TextEditingController();
   Future<SharedPreferences> pref = SharedPreferences.getInstance();
   var dbHelper;
-
-  _setIsLogin() async {}
+  bool _passwordVisible = false;
 
   @override
   void initState() {
-    _query();
+    _passwordVisible = false;
     dbHelper = dbhelper();
     super.initState();
   }
@@ -163,12 +162,57 @@ class _MyWidgetState extends State<loginPage> {
                           icon: Icons.person,
                           isObscureText: false,
                         ),
-                        getTextFormField(
-                          controller: conPassWord,
-                          labelName: 'PassWord',
-                          hintName: 'PassWord',
-                          icon: Icons.lock,
-                          isObscureText: true,
+                        Container(
+                          padding: const EdgeInsets.only(
+                              top: 25, left: 50, right: 50),
+                          child: TextFormField(
+                            controller: conPassWord,
+                            obscureText: !_passwordVisible,
+
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter PassWord';
+                              }
+                              return null;
+                            },
+                            // onSaved: (value) {
+                            //   this.controller?.text = value;
+                            // },
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                    borderSide:
+                                        BorderSide(color: Colors.transparent)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                    borderSide: BorderSide(color: Colors.blue)),
+                                errorStyle: TextStyle(color: Colors.red),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                    borderSide: BorderSide(color: Colors.blue)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                    borderSide: BorderSide(color: Colors.red)),
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                labelText: 'PassWord',
+                                hintText: 'PassWord',
+                                contentPadding: const EdgeInsets.only(left: 20),
+                                fillColor: Colors.grey[200],
+                                filled: true),
+                          ),
                         ),
                         SizedBox(
                           height: 10,
