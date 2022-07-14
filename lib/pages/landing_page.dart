@@ -6,8 +6,8 @@ import 'package:flutter_application_1/values/app_colors.dart';
 import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
 
-class landing_Page extends StatelessWidget {
-  const landing_Page({Key? key}) : super(key: key);
+class LandingPage extends StatelessWidget {
+  const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

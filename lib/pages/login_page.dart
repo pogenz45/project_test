@@ -14,14 +14,14 @@ import 'package:flutter_application_1/values/app_images.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class loginPage extends StatefulWidget {
-  const loginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<loginPage> createState() => _MyWidgetState();
+  State<LoginPage> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<loginPage> {
+class _MyWidgetState extends State<LoginPage> {
   final formkey = new GlobalKey<FormState>();
 
   final conUserName = TextEditingController();
@@ -33,8 +33,9 @@ class _MyWidgetState extends State<loginPage> {
 
   @override
   void initState() {
+    _query();
     _passwordVisible = false;
-    dbHelper = dbhelper();
+    dbHelper = Dbhelper();
     super.initState();
   }
 
@@ -57,7 +58,7 @@ class _MyWidgetState extends State<loginPage> {
       //   alertDialog('Error: Login Fail');
       // });
       UserModel user = UserModel(UserName1, Email, PassWord);
-      await dbhelper().getUserLogin(user).then((userData) {
+      await Dbhelper().GetUserLogin(user).then((userData) {
         if (userData != null) {
           setSP(userData).whenComplete(() {
             print(UserName1);
@@ -148,14 +149,14 @@ class _MyWidgetState extends State<loginPage> {
                         SizedBox(
                           height: 80,
                         ),
-                        getTextFormField(
+                        GetTextFormField(
                           controller: conUserName,
                           labelName: 'UserName',
                           hintName: 'UserName',
                           icon: Icons.person,
                           isObscureText: false,
                         ),
-                        getTextFormField(
+                        GetTextFormField(
                           controller: conEmail,
                           labelName: 'Email',
                           hintName: 'Email',
@@ -288,7 +289,7 @@ class _MyWidgetState extends State<loginPage> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => registerPage()),
+                                      builder: (context) => RegisterPage()),
                                   (route) => false);
                             },
                           ),
@@ -306,7 +307,7 @@ class _MyWidgetState extends State<loginPage> {
   }
 
   void _query() async {
-    final allRows = await dbhelper().queryAllRows();
+    final allRows = await Dbhelper().QueryAllRows();
     print('query all row');
     allRows.forEach((row) {
       print(row);

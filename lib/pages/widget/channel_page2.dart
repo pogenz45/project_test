@@ -13,7 +13,7 @@ import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MyChannel extends StatefulWidget {
+class MyChannel2 extends StatefulWidget {
   final bool showSelectedLabels;
   final bool showUnselectedLabels;
   final VoidCallback? onClick;
@@ -27,7 +27,7 @@ class MyChannel extends StatefulWidget {
   final Color selectedItemColor;
   final Color unselectedItemColor;
   // final Function(int) onIndexChange;
-  const MyChannel(
+  const MyChannel2(
       {Key? key,
       this.showSelectedLabels = false,
       this.showUnselectedLabels = false,
@@ -45,11 +45,11 @@ class MyChannel extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<MyChannel> createState() => _MyChannelState();
+  State<MyChannel2> createState() => _MyChannel2State();
 }
 
-class _MyChannelState extends State<MyChannel> {
-  final Screens = [MyChannel()];
+class _MyChannel2State extends State<MyChannel2> {
+  final Screens = [MyChannel2()];
   int? tappedIndex;
   List<Map> categories = [
     {'name': 'Action'},
@@ -85,24 +85,8 @@ class _MyChannelState extends State<MyChannel> {
       'name': 'Lorem Ipsum',
       'imagePath': AppImages.image7,
     },
-    {
-      'name': 'Lorem Ipsum',
-      'imagePath': AppImages.image7,
-    },
-    {
-      'name': 'Lorem Ipsum',
-      'imagePath': AppImages.image7,
-    },
   ];
   List<Map> detail = [
-    {
-      'd':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing dlit,Cum nisi iaculis nunc neque enim'
-    },
-    {
-      'd':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing dlit,Cum nisi iaculis nunc neque enim'
-    },
     {
       'd':
           'Lorem ipsum dolor sit amet, consectetur adipiscing dlit,Cum nisi iaculis nunc neque enim'
@@ -443,16 +427,13 @@ class _MyChannelState extends State<MyChannel> {
                 Container(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 140, right: 10, top: 15),
+                        const EdgeInsets.only(left: 140, right: 10, top: 30),
                     child: ElevatedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: Text(
-                          'See all',
-                          style: AppStyles.h3.copyWith(
-                              fontSize: 20,
-                              color: Color.fromARGB(255, 161, 154, 154)),
-                        ),
+                      child: Text(
+                        'See all',
+                        style: AppStyles.h3.copyWith(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 161, 154, 154)),
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: AppColors.primaryColor,
@@ -467,7 +448,7 @@ class _MyChannelState extends State<MyChannel> {
               child: SizedBox(
                 width: 400,
                 child: Container(
-                  height: size.height * 1 / 1.1,
+                  height: size.height * 1 / 5,
                   child: ListView.builder(
                     itemCount: NewReleases.length,
                     itemBuilder: (context, index) {

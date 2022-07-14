@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
-class getTextFormField extends StatelessWidget {
+class GetTextFormField extends StatelessWidget {
   TextEditingController? controller;
   String? hintName;
   String? labelName;
@@ -10,7 +10,7 @@ class getTextFormField extends StatelessWidget {
   TextInputType inputType;
   bool _passwordVisible = false;
 
-  getTextFormField(
+  GetTextFormField(
       {this.controller,
       this.hintName,
       this.labelName,

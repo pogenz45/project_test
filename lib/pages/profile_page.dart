@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Model/UserModel.dart';
 import 'package:flutter_application_1/dataBaseHandler/dbHelper.dart';
@@ -11,20 +9,20 @@ import 'package:flutter_application_1/values/app_colors.dart';
 import 'package:flutter_application_1/values/app_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class profile_Page extends StatefulWidget {
-  const profile_Page({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<profile_Page> createState() => _profile_PageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _profile_PageState extends State<profile_Page> {
+class _ProfilePageState extends State<ProfilePage> {
   final _conUserName = TextEditingController();
   final _conEmail = TextEditingController();
   final _conPassWord = TextEditingController();
   final formkey = new GlobalKey<FormState>();
   Future<SharedPreferences> pref = SharedPreferences.getInstance();
-  dbhelper? dbHelper;
+  Dbhelper? DbHelper;
   Map<String, dynamic>? userData;
 
   @override
@@ -43,6 +41,35 @@ class _profile_PageState extends State<profile_Page> {
     });
   }
 
+  deleteAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: new Text('Are you sure to close account?'),
+            actions: <Widget>[
+              Container(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('No'),
+                ),
+              ),
+              Container(
+                child: TextButton(
+                  onPressed: () {
+                    Delete();
+                  },
+                  child: Text("Yes"),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   update() async {
     String uUserName = _conUserName.text;
     String uEmail = _conEmail.text;
@@ -50,14 +77,14 @@ class _profile_PageState extends State<profile_Page> {
     if (formkey.currentState!.validate()) {
       formkey.currentState!.save();
       UserModel user = UserModel(uUserName, uEmail, uPassWord);
-      await dbhelper().updateUser(user).then((userData) {
+      await Dbhelper().UpdateUser(user).then((userData) {
         // if (userData == 1) {
         print(uUserName);
         alertDialog('Successfull updated');
         // updateSP(user, true).whenComplete(() {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => loginPage()),
+            MaterialPageRoute(builder: (context) => LoginPage()),
             (route) => false);
         // });
         // } else {
@@ -70,14 +97,14 @@ class _profile_PageState extends State<profile_Page> {
     }
   }
 
-  Future delete() async {
+  Future Delete() async {
     String delUserName = _conUserName.text;
 
-    await dbhelper().deleteUser(delUserName).then((value) {
+    await Dbhelper().DeleteUser(delUserName).then((value) {
       alertDialog("Successfully Deleted");
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => landing_Page()),
+          MaterialPageRoute(builder: (context) => LandingPage()),
           (route) => false);
 
       // updateSP(null, false).whenComplete(() {});
@@ -189,13 +216,13 @@ class _profile_PageState extends State<profile_Page> {
                                 Center(
                                     child: Text(
                                   _conUserName.text,
-                                  style: AppStyles.h3.copyWith(fontSize: 14),
+                                  style: AppStyles.h3.copyWith(fontSize: 16),
                                 )),
                               ],
                             ),
                           ),
                         ),
-                        // getTextFormField(
+                        // GetTextFormField(
                         //   controller: _conUserName,
                         //   // labelName: userData!['UserName'],
                         //   icon: Icons.person,
@@ -203,7 +230,7 @@ class _profile_PageState extends State<profile_Page> {
                         SizedBox(
                           height: 30,
                         ),
-                        getTextFormField(
+                        GetTextFormField(
                           controller: _conEmail,
                           // labelName: userData!['Email'],
                           icon: Icons.email,
@@ -211,7 +238,7 @@ class _profile_PageState extends State<profile_Page> {
                         SizedBox(
                           height: 30,
                         ),
-                        getTextFormField(
+                        GetTextFormField(
                           controller: _conPassWord,
                           // labelName: userData!['PassWord'],
                           icon: Icons.lock,
@@ -246,7 +273,7 @@ class _profile_PageState extends State<profile_Page> {
                             //   Navigator.pushAndRemoveUntil(
                             //       context,
                             //       MaterialPageRoute(
-                            //           builder: (context) => landing_Page()),
+                            //           builder: (context) => LandingPage()),
                             //       (route) => false);
                             // },
                           ),
@@ -266,7 +293,7 @@ class _profile_PageState extends State<profile_Page> {
                               ),
                             ),
                             onPressed: () {
-                              delete();
+                              deleteAlert();
                             },
                           ),
                         ),
@@ -285,7 +312,7 @@ class _profile_PageState extends State<profile_Page> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => landing_Page()),
+                                      builder: (context) => LandingPage()),
                                   (route) => false);
                             },
                           ),

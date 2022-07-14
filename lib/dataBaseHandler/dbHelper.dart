@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'dart:io' as io;
 
-class dbhelper {
+class Dbhelper {
   static const String DB_Name = 'DB.db';
   static final _databaseVersion = 1;
   static final table = 'tbl_user';
@@ -37,14 +37,14 @@ class dbhelper {
         "CREATE TABLE $table ($C_UserName TEXT, $C_Email TEXT, $C_PassWord TEXT, PRIMARY KEY($C_UserName))");
   }
 
-  Future<int> saveData(UserModel user) async {
+  Future<int> SaveData(UserModel user) async {
     final dbclient = await database;
     var res = await dbclient.insert(table, user.toMap());
     return res;
     // await dbclient.insert(table, user.toMap());
   }
 
-  Future<UserModel?> getUserLogin(UserModel user) async {
+  Future<UserModel?> GetUserLogin(UserModel user) async {
     print('Select User');
     print(user.UserName);
     print(user.PassWord);
@@ -89,21 +89,21 @@ class dbhelper {
   //   return null;
   // }
 
-  Future<int> updateUser(UserModel user) async {
+  Future<int> UpdateUser(UserModel user) async {
     var dbclient = await database;
     var res = await dbclient.update(table, user.toMap(),
         where: "$C_UserName = ?", whereArgs: [user.UserName]);
     return res;
   }
 
-  Future<int> deleteUser(String UserName) async {
+  Future<int> DeleteUser(String UserName) async {
     var dbClient = await database;
     var res = await dbClient
         .delete(table, where: '$C_UserName = ?', whereArgs: [UserName]);
     return res;
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+  Future<List<Map<String, dynamic>>> QueryAllRows() async {
     var dbCLient = await database;
     var res = await dbCLient.query(table);
     return res;

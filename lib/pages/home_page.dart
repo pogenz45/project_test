@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => loginPage()),
+                                builder: (context) => LoginPage()),
                             (route) => false);
                         print('pressed');
                       },
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => registerPage()),
+                                builder: (context) => RegisterPage()),
                             (route) => false);
                       },
                     ),

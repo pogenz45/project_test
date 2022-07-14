@@ -47,7 +47,7 @@ class _MyWidget1State extends State<MyWidget1> {
         style: AppStyles.h3.copyWith(fontSize: 30, color: Colors.black),
       ),
     ),
-    profile_Page(),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

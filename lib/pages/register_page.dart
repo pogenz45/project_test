@@ -6,18 +6,18 @@ import 'package:flutter_application_1/Model/UserModel.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/pages/widget/alert.dart';
 import 'package:flutter_application_1/pages/widget/getTextFormField.dart';
-import '../dataBaseHandler/DbHelper.dart';
+import '../dataBaseHandler/dbHelper.dart';
 import '../values/app_images.dart';
 import '../values/app_styles.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:toast/toast.dart';
 
-class registerPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  State<registerPage> createState() => _registerPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _registerPageState extends State<registerPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final formkey = new GlobalKey<FormState>();
   final _conUserID = TextEditingController();
   final _conUser = TextEditingController();
@@ -33,7 +33,7 @@ class _registerPageState extends State<registerPage> {
     _passwordVisible = false;
     _rpasswordVisible = false;
     super.initState();
-    dbhelper();
+    Dbhelper();
   }
 
   signup() {
@@ -51,10 +51,10 @@ class _registerPageState extends State<registerPage> {
       } else {
         formkey.currentState!.save();
         UserModel model = UserModel(user, email, pw);
-        dbhelper().saveData(model).then((userData) {
+        Dbhelper().SaveData(model).then((userData) {
           alertDialog('Successful save');
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => loginPage()));
+              context, MaterialPageRoute(builder: (_) => LoginPage()));
         }).catchError((error) {
           print(error);
           alertDialog('Error: Save data Fail');
@@ -131,7 +131,7 @@ class _registerPageState extends State<registerPage> {
                           SizedBox(
                             height: 40,
                           ),
-                          // getTextFormField(
+                          // GetTextFormField(
                           //   controller: _conUserID,
                           //   labelName: 'UserID',
                           //   hintName: 'UserID',
@@ -139,7 +139,7 @@ class _registerPageState extends State<registerPage> {
                           //   inputType: TextInputType.name,
                           //   isObscureText: false,
                           // ),
-                          getTextFormField(
+                          GetTextFormField(
                             controller: _conUser,
                             labelName: 'Username',
                             hintName: 'Username',
@@ -149,7 +149,7 @@ class _registerPageState extends State<registerPage> {
                           SizedBox(
                             height: 15,
                           ),
-                          getTextFormField(
+                          GetTextFormField(
                             controller: _conEmail,
                             labelName: 'Email',
                             hintName: 'zxc@gmail.com',
@@ -224,7 +224,7 @@ class _registerPageState extends State<registerPage> {
                                 top: 25, left: 50, right: 50),
                             child: TextFormField(
                               controller: _conRPW,
-                              obscureText: _rpasswordVisible,
+                              obscureText: !_rpasswordVisible,
 
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -275,7 +275,7 @@ class _registerPageState extends State<registerPage> {
                                   filled: true),
                             ),
                           ),
-                          // getTextFormField(
+                          // GetTextFormField(
                           //   controller: _conPW,
                           //   labelName: 'Password',
                           //   hintName: 'Password',
@@ -285,7 +285,7 @@ class _registerPageState extends State<registerPage> {
                           //   isObscureText: true,
                           // ),
 
-                          // getTextFormField(
+                          // GetTextFormField(
                           //   controller: _conRPW,
                           //   labelName: 'Confirm Password',
                           //   hintName: 'Confirm Password',
@@ -350,7 +350,7 @@ class _registerPageState extends State<registerPage> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => loginPage()),
+                                        builder: (context) => LoginPage()),
                                     (route) => false);
                               },
                             ),
